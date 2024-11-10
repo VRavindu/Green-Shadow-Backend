@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lk.ijse.gdse.sem_final_backend.dto.impl.UserDTO;
 import lk.ijse.gdse.sem_final_backend.exception.AlreadyExistsException;
 import lk.ijse.gdse.sem_final_backend.exception.DataPersistFailedException;
+import lk.ijse.gdse.sem_final_backend.exception.NotFoundException;
 import lk.ijse.gdse.sem_final_backend.service.UserService;
 import lk.ijse.gdse.sem_final_backend.util.Mapping;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,14 @@ public class UserController {
     @GetMapping("/{email}")
     public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
         return new ResponseEntity<>(userService.getUserByEmail(email), HttpStatus.OK);
+    }
+    @PatchMapping
+    public ResponseEntity<?> updateUser(@Valid @RequestBody UserDTO user) {
+        try {
+            userService.updateUser(mapping.convertUserDTOToUser(user));
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch (NotFoundException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

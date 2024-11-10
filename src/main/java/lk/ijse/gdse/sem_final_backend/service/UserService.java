@@ -6,4 +6,5 @@ import lk.ijse.gdse.sem_final_backend.entity.User;
 public interface UserService {
     void saveUser(User user);
     UserResponse getUserByEmail(String email);
+    void updateUser(User user);
 }

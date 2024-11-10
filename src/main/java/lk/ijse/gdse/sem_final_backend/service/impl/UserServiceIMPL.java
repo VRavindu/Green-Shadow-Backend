@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lk.ijse.gdse.sem_final_backend.customObj.UserResponse;
 import lk.ijse.gdse.sem_final_backend.customObj.errorRespose.UserErrorResponse;
 import lk.ijse.gdse.sem_final_backend.entity.User;
+import lk.ijse.gdse.sem_final_backend.exception.NotFoundException;
 import lk.ijse.gdse.sem_final_backend.repository.UserRepository;
 import lk.ijse.gdse.sem_final_backend.service.UserService;
 import lk.ijse.gdse.sem_final_backend.util.Mapping;
@@ -37,6 +38,15 @@ public class UserServiceIMPL implements UserService {
             return mapping.convertUserToUserDTO(user.get());
         }else {
             return new UserErrorResponse(0,"User not found");
+        }
+    }
+    @Override
+    public void updateUser(User user) {
+        Optional<User> existsUser = userRepository.findByEmail(user.getEmail());
+        if (existsUser.isPresent()) {
+            existsUser.get().setPassword(user.getPassword());
+        }else {
+            throw new NotFoundException("User not found");
         }
     }
 }
