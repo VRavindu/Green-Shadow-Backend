@@ -1,6 +1,8 @@
 package lk.ijse.gdse.sem_final_backend.util;
 
+import lk.ijse.gdse.sem_final_backend.dto.impl.StaffDTO;
 import lk.ijse.gdse.sem_final_backend.dto.impl.UserDTO;
+import lk.ijse.gdse.sem_final_backend.entity.Staff;
 import lk.ijse.gdse.sem_final_backend.entity.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,5 +18,12 @@ public class Mapping {
     }
     public UserDTO convertUserToUserDTO(User user){
         return mapper.map(user, UserDTO.class);
+    }
+
+    public Staff convertStaffDTOToStaff(StaffDTO staffDTO){
+        return mapper.map(staffDTO, Staff.class);
+    }
+    public StaffDTO convertStaffToStaffDTO(Staff staff){
+        return mapper.map(staff, StaffDTO.class);
     }
 }
