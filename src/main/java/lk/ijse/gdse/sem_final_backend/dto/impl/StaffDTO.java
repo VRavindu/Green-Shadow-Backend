@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lk.ijse.gdse.sem_final_backend.customObj.StaffRespose;
+import lk.ijse.gdse.sem_final_backend.customObj.StaffResponse;
 import lk.ijse.gdse.sem_final_backend.dto.SuperDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class StaffDTO implements SuperDTO, StaffRespose {
+public class StaffDTO implements SuperDTO, StaffResponse {
     private String id;
     @NotBlank
     @Pattern(regexp = "^[A-Z][a-z]*$")
