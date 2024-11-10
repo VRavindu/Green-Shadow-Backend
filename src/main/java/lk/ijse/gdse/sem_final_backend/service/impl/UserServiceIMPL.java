@@ -1,6 +1,8 @@
 package lk.ijse.gdse.sem_final_backend.service.impl;
 
 import jakarta.transaction.Transactional;
+import lk.ijse.gdse.sem_final_backend.customObj.UserResponse;
+import lk.ijse.gdse.sem_final_backend.customObj.errorRespose.UserErrorResponse;
 import lk.ijse.gdse.sem_final_backend.entity.User;
 import lk.ijse.gdse.sem_final_backend.repository.UserRepository;
 import lk.ijse.gdse.sem_final_backend.service.UserService;
@@ -26,6 +28,15 @@ public class UserServiceIMPL implements UserService {
             }
         }else {
             throw new RuntimeException("User already exists");
+        }
+    }
+    @Override
+    public UserResponse getUserByEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent()) {
+            return mapping.convertUserToUserDTO(user.get());
+        }else {
+            return new UserErrorResponse(0,"User not found");
         }
     }
 }
