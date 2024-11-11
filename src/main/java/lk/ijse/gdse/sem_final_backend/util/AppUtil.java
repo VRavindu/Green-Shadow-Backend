@@ -6,4 +6,7 @@ public class AppUtil {
     public static String createStaffID() {
         return "ST-" + UUID.randomUUID();
     }
+    public static String createVehicleCode() {
+        return "VC-" + UUID.randomUUID();
+    }
 }
