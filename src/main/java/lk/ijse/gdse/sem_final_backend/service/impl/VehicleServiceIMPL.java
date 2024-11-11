@@ -70,4 +70,10 @@ public class VehicleServiceIMPL implements VehicleService {
             return new VehicleErrorResponse(404 , "vehicle not found");
         }
     }
+    @Override
+    public void deleteVehicle(String vehicleCode) {
+        Vehicle vehicle = vehicleRepository.findById(vehicleCode)
+                .orElseThrow(() -> new NotFoundException("vehicle not found"));
+        vehicleRepository.delete(vehicle);
+    }
 }

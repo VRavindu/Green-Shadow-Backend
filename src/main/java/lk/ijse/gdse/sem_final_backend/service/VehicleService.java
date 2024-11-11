@@ -7,4 +7,5 @@ public interface VehicleService {
     void addVehicle(VehicleDTO vehicle);
     void updateVehicle(VehicleDTO vehicleDTO, String staffId , String vehicleCode);
     VehicleResponse getVehicle(String vehicleCode);
+    void deleteVehicle(String vehicleCode);
 }
