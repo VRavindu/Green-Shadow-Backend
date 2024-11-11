@@ -72,4 +72,13 @@ public class EquipmentServiceIMPL implements EquipmentService {
             throw new NotFoundException("Equipment not found");
         }
     }
+    @Override
+    public void deleteEquipment(String equipmentId) {
+        Optional<Equipment> equipment = equipmentRepository.findById(equipmentId);
+        if (equipment.isPresent()){
+            equipmentRepository.deleteById(equipmentId);
+        }else {
+            throw new NotFoundException("Equipment not found");
+        }
+    }
 }
