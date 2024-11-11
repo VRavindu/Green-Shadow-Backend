@@ -7,4 +7,5 @@ public interface StaffService {
     void saveStaff(StaffDTO staffDTO);
     void updateStaff(StaffDTO staffDTO, String id);
     StaffResponse getStaffById(String id);
+    void deleteStaff(String id);
 }

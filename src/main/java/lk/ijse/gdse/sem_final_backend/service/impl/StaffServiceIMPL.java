@@ -56,4 +56,13 @@ public class StaffServiceIMPL implements StaffService {
             return new StaffErrorResponse(404, "Staff not found");
         }
     }
+    @Override
+    public void deleteStaff(String id) {
+        Optional<Staff> existsStaff = staffRepository.findById(id);
+        if (existsStaff.isPresent()){
+            staffRepository.deleteById(id);
+        }else {
+            throw new NotFoundException("Staff not found");
+        }
+    }
 }
