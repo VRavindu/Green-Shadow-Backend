@@ -64,4 +64,14 @@ public class VehicleController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping
+    public ResponseEntity<?> getAllVehicles(){
+        try {
+            return new ResponseEntity<>(vehicleService.getAllVehicles(), HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

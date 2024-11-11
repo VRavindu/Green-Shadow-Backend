@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -75,5 +76,9 @@ public class VehicleServiceIMPL implements VehicleService {
         Vehicle vehicle = vehicleRepository.findById(vehicleCode)
                 .orElseThrow(() -> new NotFoundException("vehicle not found"));
         vehicleRepository.delete(vehicle);
+    }
+    @Override
+    public List getAllVehicles() {
+        return mapping.convertVehicleListToVehicleDTOList(vehicleRepository.findAll());
     }
 }
