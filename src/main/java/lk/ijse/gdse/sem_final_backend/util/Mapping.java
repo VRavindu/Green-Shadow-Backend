@@ -1,13 +1,7 @@
 package lk.ijse.gdse.sem_final_backend.util;
 
-import lk.ijse.gdse.sem_final_backend.dto.impl.FieldDTO;
-import lk.ijse.gdse.sem_final_backend.dto.impl.StaffDTO;
-import lk.ijse.gdse.sem_final_backend.dto.impl.UserDTO;
-import lk.ijse.gdse.sem_final_backend.dto.impl.VehicleDTO;
-import lk.ijse.gdse.sem_final_backend.entity.Field;
-import lk.ijse.gdse.sem_final_backend.entity.Staff;
-import lk.ijse.gdse.sem_final_backend.entity.User;
-import lk.ijse.gdse.sem_final_backend.entity.Vehicle;
+import lk.ijse.gdse.sem_final_backend.dto.impl.*;
+import lk.ijse.gdse.sem_final_backend.entity.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -52,6 +46,16 @@ public class Mapping {
         return mapper.map(field, FieldDTO.class);
     }
     public List convertFieldListToFieldDTOList(List<Field> all) {
+        return mapper.map(all, List.class);
+    }
+    //EQUIPMENT
+    public Equipment convertEquipmentDTOToEquipment(EquipmentDTO equipmentDTO){
+        return mapper.map(equipmentDTO, Equipment.class);
+    }
+    public EquipmentDTO convertEquipmentToEquipmentDTO(Equipment equipment){
+        return mapper.map(equipment, EquipmentDTO.class);
+    }
+    public List convertEquipmentListToEquipmentDTOList(List<Equipment> all) {
         return mapper.map(all, List.class);
     }
 }

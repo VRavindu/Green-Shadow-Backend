@@ -24,4 +24,7 @@ public class AppUtil {
         }
         return proPicBase64;
     }
+    public static String createEquipmentId(){
+        return "EID-" + UUID.randomUUID();
+    }
 }
