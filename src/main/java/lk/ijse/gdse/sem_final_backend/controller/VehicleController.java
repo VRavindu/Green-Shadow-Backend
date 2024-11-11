@@ -43,4 +43,14 @@ public class VehicleController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/{vehicleCode}")
+    public ResponseEntity<?> getVehicle(@PathVariable String vehicleCode) {
+        try {
+            return new ResponseEntity<>(vehicleService.getVehicle(vehicleCode), HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

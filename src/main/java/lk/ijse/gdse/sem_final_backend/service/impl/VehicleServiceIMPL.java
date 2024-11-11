@@ -1,5 +1,7 @@
 package lk.ijse.gdse.sem_final_backend.service.impl;
 
+import lk.ijse.gdse.sem_final_backend.customObj.VehicleResponse;
+import lk.ijse.gdse.sem_final_backend.customObj.errorRespose.VehicleErrorResponse;
 import lk.ijse.gdse.sem_final_backend.dto.impl.VehicleDTO;
 import lk.ijse.gdse.sem_final_backend.entity.Staff;
 import lk.ijse.gdse.sem_final_backend.entity.Vehicle;
@@ -14,6 +16,8 @@ import lk.ijse.gdse.sem_final_backend.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -56,5 +60,14 @@ public class VehicleServiceIMPL implements VehicleService {
             vehicle.setStaff(null);
         }
         vehicleRepository.save(vehicle);
+    }
+    @Override
+    public VehicleResponse getVehicle(String vehicleCode) {
+        Optional<Vehicle> byId = vehicleRepository.findById(vehicleCode);
+        if (byId.isPresent()){
+            return mapping.convertVehicleToVehicleDTO(byId.get());
+        }else {
+            return new VehicleErrorResponse(404 , "vehicle not found");
+        }
     }
 }
