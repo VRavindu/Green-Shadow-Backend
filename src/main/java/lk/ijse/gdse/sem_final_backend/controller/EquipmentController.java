@@ -54,4 +54,14 @@ public class EquipmentController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/{equipmentId}")
+    public ResponseEntity<?> getEquipmentById(@PathVariable String equipmentId) {
+        try {
+            return new ResponseEntity<>(equipmentService.getEquipment(equipmentId), HttpStatus.OK);
+        } catch (DataPersistFailedException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

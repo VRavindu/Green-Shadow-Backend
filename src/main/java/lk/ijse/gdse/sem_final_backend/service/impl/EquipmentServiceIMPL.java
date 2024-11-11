@@ -1,5 +1,7 @@
 package lk.ijse.gdse.sem_final_backend.service.impl;
 
+import lk.ijse.gdse.sem_final_backend.customObj.EquipmentResponse;
+import lk.ijse.gdse.sem_final_backend.customObj.errorRespose.EquipmentErrorResponse;
 import lk.ijse.gdse.sem_final_backend.dto.impl.EquipmentDTO;
 import lk.ijse.gdse.sem_final_backend.entity.Equipment;
 import lk.ijse.gdse.sem_final_backend.entity.Field;
@@ -79,6 +81,15 @@ public class EquipmentServiceIMPL implements EquipmentService {
             equipmentRepository.deleteById(equipmentId);
         }else {
             throw new NotFoundException("Equipment not found");
+        }
+    }
+    @Override
+    public EquipmentResponse getEquipment(String equipmentId) {
+        Optional<Equipment> equipment = equipmentRepository.findById(equipmentId);
+        if (equipment.isPresent()){
+            return mapping.convertEquipmentToEquipmentDTO(equipment.get());
+        }else {
+            return new EquipmentErrorResponse(404, "Equipment not found");
         }
     }
 }
