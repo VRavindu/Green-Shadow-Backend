@@ -1,8 +1,10 @@
 package lk.ijse.gdse.sem_final_backend.util;
 
+import lk.ijse.gdse.sem_final_backend.dto.impl.FieldDTO;
 import lk.ijse.gdse.sem_final_backend.dto.impl.StaffDTO;
 import lk.ijse.gdse.sem_final_backend.dto.impl.UserDTO;
 import lk.ijse.gdse.sem_final_backend.dto.impl.VehicleDTO;
+import lk.ijse.gdse.sem_final_backend.entity.Field;
 import lk.ijse.gdse.sem_final_backend.entity.Staff;
 import lk.ijse.gdse.sem_final_backend.entity.User;
 import lk.ijse.gdse.sem_final_backend.entity.Vehicle;
@@ -40,6 +42,16 @@ public class Mapping {
         return mapper.map(vehicle, VehicleDTO.class);
     }
     public List convertVehicleListToVehicleDTOList(List<Vehicle> all) {
+        return mapper.map(all, List.class);
+    }
+    //FIELD
+    public Field convertFieldDTOToField(FieldDTO fieldDTO){
+        return mapper.map(fieldDTO, Field.class);
+    }
+    public FieldDTO convertFieldToFieldDTO(Field field){
+        return mapper.map(field, FieldDTO.class);
+    }
+    public List convertFieldListToFieldDTOList(List<Field> all) {
         return mapper.map(all, List.class);
     }
 }
