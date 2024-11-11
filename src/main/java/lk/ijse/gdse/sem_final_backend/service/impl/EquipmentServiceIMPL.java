@@ -17,6 +17,7 @@ import lk.ijse.gdse.sem_final_backend.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -91,5 +92,9 @@ public class EquipmentServiceIMPL implements EquipmentService {
         }else {
             return new EquipmentErrorResponse(404, "Equipment not found");
         }
+    }
+    @Override
+    public List<EquipmentResponse> getAllEquipment() {
+        return mapping.convertEquipmentListToEquipmentDTOList(equipmentRepository.findAll());
     }
 }

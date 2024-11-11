@@ -64,4 +64,14 @@ public class EquipmentController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping
+    public ResponseEntity<?> getAllEquipments(){
+        try {
+            return new ResponseEntity<>(equipmentService.getAllEquipment(), HttpStatus.OK);
+        } catch (DataPersistFailedException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
