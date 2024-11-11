@@ -78,4 +78,8 @@ public class FieldServiceIMPL implements FieldService {
             return new FieldErrorResponse("Field not found", 404);
         }
     }
+    @Override
+    public List getAllFields() {
+        return mapping.convertFieldListToFieldDTOList(fieldRepository.findAll());
+    }
 }

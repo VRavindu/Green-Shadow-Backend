@@ -9,4 +9,5 @@ public interface FieldService {
     void updateField(FieldDTO fieldDTO , List<String> staffIds);
     void deleteField(String fieldCode);
     FieldResponse getField(String fieldCode);
+    List getAllFields();
 }

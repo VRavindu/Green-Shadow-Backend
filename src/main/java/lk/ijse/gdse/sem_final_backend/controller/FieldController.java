@@ -94,4 +94,13 @@ public class FieldController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping
+    public ResponseEntity<?> getAllFields(){
+        try {
+            var fields = fieldService.getAllFields();
+            return new ResponseEntity<>(fields, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
