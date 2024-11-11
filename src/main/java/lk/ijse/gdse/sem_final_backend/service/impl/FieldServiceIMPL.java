@@ -1,5 +1,7 @@
 package lk.ijse.gdse.sem_final_backend.service.impl;
 
+import lk.ijse.gdse.sem_final_backend.customObj.FieldResponse;
+import lk.ijse.gdse.sem_final_backend.customObj.errorRespose.FieldErrorResponse;
 import lk.ijse.gdse.sem_final_backend.dto.impl.FieldDTO;
 import lk.ijse.gdse.sem_final_backend.entity.Field;
 import lk.ijse.gdse.sem_final_backend.entity.Staff;
@@ -59,6 +61,21 @@ public class FieldServiceIMPL implements FieldService {
             fieldRepository.deleteById(fieldCode);
         }else {
             throw new NotFoundException("Field not found");
+        }
+    }
+    @Override
+    public FieldResponse getField(String fieldCode) {
+        Optional<Field> field = fieldRepository.findById(fieldCode);
+        if (field.isPresent()) {
+            FieldDTO fieldDTO = mapping.convertFieldToFieldDTO(field.get());
+            List<String> staffIds = new ArrayList<>();
+            field.get().getStaff().forEach(
+                    staff -> staffIds.add(staff.getId())
+            );
+            fieldDTO.setStaffId(staffIds);
+            return fieldDTO;
+        }else {
+            return new FieldErrorResponse("Field not found", 404);
         }
     }
 }

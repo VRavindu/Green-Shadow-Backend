@@ -83,4 +83,15 @@ public class FieldController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/{fieldCode}")
+    public ResponseEntity<?> getField(@PathVariable String fieldCode){
+        try {
+            var field = fieldService.getField(fieldCode);
+            return new ResponseEntity<>(field, HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
