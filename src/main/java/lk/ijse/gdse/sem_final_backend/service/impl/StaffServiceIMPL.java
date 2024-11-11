@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -64,5 +65,9 @@ public class StaffServiceIMPL implements StaffService {
         }else {
             throw new NotFoundException("Staff not found");
         }
+    }
+    @Override
+    public List<StaffDTO> getAllStaff() {
+        return mapping.convertStaffListToStaffDTOList(staffRepository.findAll());
     }
 }

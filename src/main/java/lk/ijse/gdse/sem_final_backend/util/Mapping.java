@@ -7,6 +7,7 @@ import lk.ijse.gdse.sem_final_backend.entity.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import java.util.List;
 
 @Component
 public class Mapping {
@@ -25,5 +26,8 @@ public class Mapping {
     }
     public StaffDTO convertStaffToStaffDTO(Staff staff){
         return mapper.map(staff, StaffDTO.class);
+    }
+    public List convertStaffListToStaffDTOList(List<Staff> all) {
+        return mapper.map(all, List.class);
     }
 }
