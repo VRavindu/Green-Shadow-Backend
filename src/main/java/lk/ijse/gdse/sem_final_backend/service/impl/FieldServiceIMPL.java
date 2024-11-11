@@ -52,4 +52,13 @@ public class FieldServiceIMPL implements FieldService {
             throw new NotFoundException("Field not found");
         }
     }
+    @Override
+    public void deleteField(String fieldCode) {
+        Optional<Field> field = fieldRepository.findById(fieldCode);
+        if (field.isPresent()) {
+            fieldRepository.deleteById(fieldCode);
+        }else {
+            throw new NotFoundException("Field not found");
+        }
+    }
 }
