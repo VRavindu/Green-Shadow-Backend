@@ -15,6 +15,8 @@ import lk.ijse.gdse.sem_final_backend.util.Mapping;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -72,5 +74,9 @@ public class CropServiceIMPL implements CropService {
         }else {
             return new CropErrorResponse(0,"Crop not found");
         }
+    }
+    @Override
+    public List getAllCrops() {
+        return mapping.convertCropListToCropDTOList(cropRepository.findAll());
     }
 }

@@ -91,4 +91,8 @@ public class CropController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping
+    public ResponseEntity<?> getAllCrops(){
+        return new ResponseEntity<>(cropService.getAllCrops(), HttpStatus.OK);
+    }
 }
