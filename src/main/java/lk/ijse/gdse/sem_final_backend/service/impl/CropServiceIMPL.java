@@ -52,4 +52,13 @@ public class CropServiceIMPL implements CropService {
             throw new NotFoundException("Crop not found");
         }
     }
+    @Override
+    public void deleteCrop(String id) {
+        Optional<Crop> byCropCode = cropRepository.findByCropCode(id);
+        if (byCropCode.isPresent()){
+            cropRepository.delete(byCropCode.get());
+        }else {
+            throw new NotFoundException("Crop not found");
+        }
+    }
 }
