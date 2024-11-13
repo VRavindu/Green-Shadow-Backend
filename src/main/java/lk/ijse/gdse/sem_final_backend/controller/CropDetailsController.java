@@ -61,4 +61,13 @@ public class CropDetailsController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @DeleteMapping("/{logCode}")
+    public ResponseEntity<?> deleteCropDetailsByLogCode(@PathVariable String logCode) {
+        try {
+            cropDetailsService.deleteCropDetailsByLogCode(logCode);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }
