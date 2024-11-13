@@ -1,5 +1,7 @@
 package lk.ijse.gdse.sem_final_backend.service.impl;
 
+import lk.ijse.gdse.sem_final_backend.customObj.CropResponse;
+import lk.ijse.gdse.sem_final_backend.customObj.errorRespose.CropErrorResponse;
 import lk.ijse.gdse.sem_final_backend.dto.impl.CropDTO;
 import lk.ijse.gdse.sem_final_backend.entity.Crop;
 import lk.ijse.gdse.sem_final_backend.entity.Field;
@@ -59,6 +61,16 @@ public class CropServiceIMPL implements CropService {
             cropRepository.delete(byCropCode.get());
         }else {
             throw new NotFoundException("Crop not found");
+        }
+    }
+    @Override
+    public CropResponse getCrop(String id) {
+        Optional<Crop> byCropCode = cropRepository.findByCropCode(id);
+        if (byCropCode.isPresent()){
+            CropDTO cropDTO = mapping.convertCropToCropDTO(byCropCode.get());
+            return cropDTO;
+        }else {
+            return new CropErrorResponse(0,"Crop not found");
         }
     }
 }
