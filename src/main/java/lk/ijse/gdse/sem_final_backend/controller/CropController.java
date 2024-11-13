@@ -43,4 +43,31 @@ public class CropController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity<?> updateCrop(
+            @RequestPart("cropName") String cropName,
+            @RequestPart("cropType") String cropCategory,
+            @RequestPart("cropSeason") String cropSeason,
+            @RequestPart("cropScientificName") String cropScientificName,
+            @RequestParam("cropImage") MultipartFile cropImage,
+            @RequestParam("FieldCode") String fieldCode,
+            @PathVariable String id
+    ) {
+        CropDTO cropDTO = new CropDTO();
+        cropDTO.setCropCommonName(cropName);
+        cropDTO.setCategory(cropCategory);
+        cropDTO.setCropSeason(cropSeason);
+        cropDTO.setCropScientificName(cropScientificName);
+        cropDTO.setCropImage(AppUtil.toBase64(cropImage));
+        try {
+            cropService.updateCrop(cropDTO, fieldCode, id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotFoundException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (DataPersistFailedException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
