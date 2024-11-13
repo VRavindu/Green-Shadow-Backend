@@ -6,6 +6,7 @@ import lk.ijse.gdse.sem_final_backend.entity.CropDetails;
 import lk.ijse.gdse.sem_final_backend.entity.Field;
 import lk.ijse.gdse.sem_final_backend.entity.Staff;
 import lk.ijse.gdse.sem_final_backend.exception.DataPersistFailedException;
+import lk.ijse.gdse.sem_final_backend.exception.NotFoundException;
 import lk.ijse.gdse.sem_final_backend.repository.CropDetailsRepository;
 import lk.ijse.gdse.sem_final_backend.repository.CropRepository;
 import lk.ijse.gdse.sem_final_backend.repository.FieldRepository;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -52,6 +54,16 @@ public class CropDetailsServiceIMPL implements CropDetailsService {
         CropDetails save = cropDetailsRepository.save(cropDetails);
         if (save == null){
             throw new DataPersistFailedException("Crop details save failed");
+        }
+    }
+    @Override
+    public void updateCropDetails(CropDetailsDTO cropDetailsDTO , String logCode) {
+        Optional<CropDetails> cropDetailsByLogCode = cropDetailsRepository.findCropDetailsByLogCode(logCode);
+        if (cropDetailsByLogCode.isPresent()){
+            cropDetailsByLogCode.get().setLogDetails(cropDetailsDTO.getLogDetails());
+            cropDetailsByLogCode.get().setObservedImage(cropDetailsDTO.getObservedImage());
+        }else {
+            throw new NotFoundException("Crop details not found");
         }
     }
 }

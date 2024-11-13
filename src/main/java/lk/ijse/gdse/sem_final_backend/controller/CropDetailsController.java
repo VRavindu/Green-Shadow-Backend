@@ -2,6 +2,7 @@ package lk.ijse.gdse.sem_final_backend.controller;
 
 import lk.ijse.gdse.sem_final_backend.dto.impl.CropDetailsDTO;
 import lk.ijse.gdse.sem_final_backend.exception.DataPersistFailedException;
+import lk.ijse.gdse.sem_final_backend.exception.NotFoundException;
 import lk.ijse.gdse.sem_final_backend.service.CropDetailsService;
 import lk.ijse.gdse.sem_final_backend.util.AppUtil;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,23 @@ public class CropDetailsController {
             cropDetailsService.saveCropDetails(cropDetailsDTO);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (DataPersistFailedException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PatchMapping(value = "/{logCode}")
+    public ResponseEntity<?> updateCropDetails(
+            @RequestPart(value = "logDetails") String logDetails,
+            @RequestPart(value = "observedImg") MultipartFile observedImg,
+            @PathVariable(value = "logCode") String logCode
+    ) {
+        try {
+            String updateBase64ProfilePic = AppUtil.toBase64(observedImg);
+            CropDetailsDTO cropDetailsDTO = new CropDetailsDTO();
+            cropDetailsDTO.setLogDetails(logDetails);
+            cropDetailsDTO.setObservedImage(updateBase64ProfilePic);
+            cropDetailsService.updateCropDetails(cropDetailsDTO, logCode);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotFoundException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
