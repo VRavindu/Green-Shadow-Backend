@@ -108,4 +108,9 @@ public class CropDetailsServiceIMPL implements CropDetailsService {
             return new CropDetailsErrorResponse(0,"Crop details not found");
         }
     }
+    @Override
+    public List<CropDetailsDTO> getAllCropDetails() {
+        List<CropDetails> all = cropDetailsRepository.findAll();
+        return mapping.convertCropListToCropDetailsDTOList(all);
+    }
 }

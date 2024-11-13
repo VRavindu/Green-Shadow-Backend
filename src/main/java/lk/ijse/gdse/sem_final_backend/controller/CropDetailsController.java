@@ -80,4 +80,8 @@ public class CropDetailsController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping
+    public ResponseEntity<?> getAllCropDetails() {
+        return new ResponseEntity<>(cropDetailsService.getAllCropDetails(), HttpStatus.OK);
+    }
 }
