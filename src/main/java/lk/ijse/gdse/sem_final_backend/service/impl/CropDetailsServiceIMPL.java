@@ -1,5 +1,7 @@
 package lk.ijse.gdse.sem_final_backend.service.impl;
 
+import lk.ijse.gdse.sem_final_backend.customObj.CropDetailsResponse;
+import lk.ijse.gdse.sem_final_backend.customObj.errorRespose.CropDetailsErrorResponse;
 import lk.ijse.gdse.sem_final_backend.dto.impl.CropDetailsDTO;
 import lk.ijse.gdse.sem_final_backend.entity.Crop;
 import lk.ijse.gdse.sem_final_backend.entity.CropDetails;
@@ -73,6 +75,37 @@ public class CropDetailsServiceIMPL implements CropDetailsService {
             cropDetailsRepository.delete(cropDetailsByLogCode.get());
         }else {
             throw new NotFoundException("Crop details not found");
+        }
+    }
+    @Override
+    public CropDetailsResponse findCropDetailsByLogCode(String logCode) {
+        Optional<CropDetails> cropDetailsByLogCode = cropDetailsRepository.findCropDetailsByLogCode(logCode);
+        if (cropDetailsByLogCode.isPresent()){
+            CropDetailsDTO cropDetailsDTO = mapping.convertCropDetailsToCropDetailsDTO(cropDetailsByLogCode.get());
+            if (cropDetailsByLogCode.get().getField() != null){
+                List<String> fieldCodes = new ArrayList<>();
+                cropDetailsByLogCode.get().getField().forEach(
+                        field -> fieldCodes.add(field.getFieldCode())
+                );
+                cropDetailsDTO.setFieldCodes(fieldCodes);
+            }
+            if (cropDetailsByLogCode.get().getCrop() != null){
+                List<String> cropCodes = new ArrayList<>();
+                cropDetailsByLogCode.get().getCrop().forEach(
+                        crop -> cropCodes.add(crop.getCropCode())
+                );
+                cropDetailsDTO.setCropCodes(cropCodes);
+            }
+            if (cropDetailsByLogCode.get().getStaff() != null){
+                List<String> staffIds = new ArrayList<>();
+                cropDetailsByLogCode.get().getStaff().forEach(
+                        staff -> staffIds.add(staff.getId())
+                );
+                cropDetailsDTO.setStaffIds(staffIds);
+            }
+            return cropDetailsDTO;
+        }else {
+            return new CropDetailsErrorResponse(0,"Crop details not found");
         }
     }
 }

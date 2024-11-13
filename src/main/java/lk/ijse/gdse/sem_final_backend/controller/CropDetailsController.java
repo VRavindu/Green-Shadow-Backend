@@ -1,5 +1,6 @@
 package lk.ijse.gdse.sem_final_backend.controller;
 
+import lk.ijse.gdse.sem_final_backend.customObj.CropDetailsResponse;
 import lk.ijse.gdse.sem_final_backend.dto.impl.CropDetailsDTO;
 import lk.ijse.gdse.sem_final_backend.exception.DataPersistFailedException;
 import lk.ijse.gdse.sem_final_backend.exception.NotFoundException;
@@ -66,6 +67,15 @@ public class CropDetailsController {
         try {
             cropDetailsService.deleteCropDetailsByLogCode(logCode);
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping("/{logCode}")
+    public ResponseEntity<?> findCropDetailsByLogCode(@PathVariable String logCode) {
+        try {
+            CropDetailsResponse cropDetailsByLogCode = cropDetailsService.findCropDetailsByLogCode(logCode);
+            return new ResponseEntity<>(cropDetailsByLogCode, HttpStatus.OK);
         } catch (NotFoundException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
