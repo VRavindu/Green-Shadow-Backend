@@ -27,4 +27,7 @@ public class AppUtil {
     public static String createEquipmentId(){
         return "EID-" + UUID.randomUUID();
     }
+    public static String createCropCode(){
+        return "CID-" + UUID.randomUUID();
+    }
 }
