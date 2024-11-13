@@ -68,4 +68,14 @@ public class Mapping {
     public List convertCropListToCropDTOList(List<Crop> all) {
         return mapper.map(all, List.class);
     }
+    //CROP_DETAILS
+    public CropDetails convertCropDetailsDTOToCropDetails(CropDetailsDTO cropDetailsDTO){
+        return mapper.map(cropDetailsDTO, CropDetails.class);
+    }
+    public CropDetailsDTO convertCropDetailsToCropDetailsDTO(CropDetails cropDetails){
+        return mapper.map(cropDetails, CropDetailsDTO.class);
+    }
+    public List convertCropListToCropDetailsDTOList(List<CropDetails> all) {
+        return mapper.map(all, List.class);
+    }
 }

@@ -30,4 +30,7 @@ public class AppUtil {
     public static String createCropCode(){
         return "CID-" + UUID.randomUUID();
     }
+    public static String createCropDetailsID(){
+        return "CD-" + UUID.randomUUID();
+    }
 }
