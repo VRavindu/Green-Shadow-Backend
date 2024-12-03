@@ -26,11 +26,11 @@ public class FieldController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> saveField(
             @RequestParam("fieldName") String fieldName,
-            @RequestParam("fieldLocationX") int fieldLocationX,
+            @RequestParam("fieldLocationX") double fieldLocationX,
             @RequestParam("fieldSize") double fieldSize,
             @RequestParam("image1") MultipartFile image1,
             @RequestParam("image2") MultipartFile image2,
-            @RequestParam("fieldLocationY") int fieldLocationY
+            @RequestParam("fieldLocationY") double fieldLocationY
     ) {
         log.info("Request to save field: fieldName={}, fieldLocationX={}, fieldLocationY={}, fieldSize={}",
                 fieldName, fieldLocationX, fieldLocationY, fieldSize);
@@ -56,11 +56,11 @@ public class FieldController {
     public ResponseEntity<?> updateField(
             @PathVariable("fieldCode") String fieldCode,
             @RequestParam("fieldName") String fieldName,
-            @RequestParam("fieldLocationX") int fieldLocationX,
+            @RequestParam("fieldLocationX") double fieldLocationX,
             @RequestParam("fieldSize") double fieldSize,
             @RequestParam("image1") MultipartFile image1,
             @RequestParam("image2") MultipartFile image2,
-            @RequestParam("fieldLocationY") int fieldLocationY,
+            @RequestParam("fieldLocationY") double fieldLocationY,
             @RequestParam("staffIds") List<String> staffIds
     ) {
         log.info("Request to update field: fieldCode={}, fieldName={}, staffIds={}",
