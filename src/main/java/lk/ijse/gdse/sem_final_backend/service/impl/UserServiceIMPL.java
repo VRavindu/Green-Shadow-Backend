@@ -9,6 +9,7 @@ import lk.ijse.gdse.sem_final_backend.repository.UserRepository;
 import lk.ijse.gdse.sem_final_backend.service.UserService;
 import lk.ijse.gdse.sem_final_backend.util.Mapping;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 
@@ -48,5 +49,11 @@ public class UserServiceIMPL implements UserService {
         }else {
             throw new NotFoundException("User not found");
         }
+    }
+    @Override
+    public UserDetailsService userDetailsService() {
+        return email ->
+                userRepository.findByEmail(email)
+                        .orElseThrow(()-> new NotFoundException("User Not found"));
     }
 }
