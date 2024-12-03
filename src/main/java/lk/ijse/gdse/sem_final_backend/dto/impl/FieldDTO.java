@@ -9,7 +9,7 @@ import lk.ijse.gdse.sem_final_backend.dto.SuperDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.awt.*;
+import org.springframework.data.geo.Point;
 import java.util.List;
 
 @AllArgsConstructor

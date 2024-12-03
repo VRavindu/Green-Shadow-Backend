@@ -4,6 +4,7 @@ import lk.ijse.gdse.sem_final_backend.customObj.StaffResponse;
 import lk.ijse.gdse.sem_final_backend.customObj.errorRespose.StaffErrorResponse;
 import lk.ijse.gdse.sem_final_backend.dto.impl.StaffDTO;
 import lk.ijse.gdse.sem_final_backend.entity.Staff;
+import lk.ijse.gdse.sem_final_backend.exception.AlreadyExistsException;
 import lk.ijse.gdse.sem_final_backend.exception.DataPersistFailedException;
 import lk.ijse.gdse.sem_final_backend.exception.NotFoundException;
 import lk.ijse.gdse.sem_final_backend.repository.StaffRepository;
@@ -25,14 +26,15 @@ public class StaffServiceIMPL implements StaffService {
     private final Mapping mapping;
     @Override
     public void saveStaff(StaffDTO staffDTO) {
-        String staffID = AppUtil.createStaffID();
-        while (staffRepository.existsById(staffID)) {
-            staffID = AppUtil.createStaffID();
-        }
-        staffDTO.setId(staffID);
-        Staff save = staffRepository.save(mapping.convertStaffDTOToStaff(staffDTO));
-        if (save == null){
-            throw new DataPersistFailedException("Staff save failed");
+        if (!staffRepository.existsByEmail(staffDTO.getEmail())) {
+            String staffID = AppUtil.createStaffID();
+            staffDTO.setId(staffID);
+            Staff save = staffRepository.save(mapping.convertStaffDTOToStaff(staffDTO));
+            if (save == null) {
+                throw new DataPersistFailedException("Staff save failed");
+            }
+        }else {
+            throw new AlreadyExistsException("Email already exist");
         }
     }
     @Override
