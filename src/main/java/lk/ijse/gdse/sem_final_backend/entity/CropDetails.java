@@ -17,11 +17,15 @@ public class CropDetails {
     @Id
     @Column(name = "log_code")
     private String logCode;
+
     private Date logDate;
+
     private String logDetails;
+
     @Column(columnDefinition = "LONGTEXT")
     private String observedImage;
-    @ManyToMany
+
+    @ManyToMany(cascade = CascadeType.ALL)  // Cascade the operations (including delete) for this relationship
     @JsonIgnore
     @JoinTable(
             name = "field_log",
@@ -29,7 +33,8 @@ public class CropDetails {
             inverseJoinColumns = @JoinColumn(name = "log_code")
     )
     private List<Field> field;
-    @ManyToMany
+
+    @ManyToMany(cascade = CascadeType.ALL)  // Cascade the operations (including delete) for this relationship
     @JsonIgnore
     @JoinTable(
             name = "log_crop_details",
@@ -37,7 +42,8 @@ public class CropDetails {
             inverseJoinColumns = @JoinColumn(name = "crop_code")
     )
     private List<Crop> crop;
-    @ManyToMany
+
+    @ManyToMany(cascade = CascadeType.ALL)  // Cascade the operations (including delete) for this relationship
     @JsonIgnore
     @JoinTable(
             name = "log_staff",

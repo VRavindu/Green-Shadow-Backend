@@ -14,16 +14,24 @@ public class Vehicle {
     @Id
     @Column(name = "vehicle_code")
     private String vehicleCode;
+
     @Column(name = "licence_plate_number", unique = true)
     private String licensePlateNumber;
+
     @Column(name = "vehicle_category")
     private String vehicleCategory;
+
     @Column(name = "fuel_type")
     private String fuelType;
+
     @Column(name = "status")
     private String status;
+
     @Column(name = "remarks")
     private String remarks;
-    @ManyToOne
+
+    // Optional relationship with Staff (cascade if needed)
+    @ManyToOne(optional = true)  // 'optional' can be set to true if vehicle can exist without staff
     @JoinColumn(name = "staff_member_id", referencedColumnName = "staff_member_id")
-    private Staff staff;}
+    private Staff staff;
+}

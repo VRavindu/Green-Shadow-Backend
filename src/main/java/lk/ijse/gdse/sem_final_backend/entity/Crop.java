@@ -26,10 +26,10 @@ public class Crop {
     private String category;
     @Column(name = "crop_season")
     private String cropSeason;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)  // Cascading delete from Field to Crop
     @JoinColumn(name = "field_code", referencedColumnName = "field_code")
     private Field field;
-    @ManyToMany(mappedBy = "crop")
+    @ManyToMany(mappedBy = "crop", cascade = CascadeType.ALL)  // Cascading delete from CropDetails to Crop
     @JsonIgnore
     private List<CropDetails> cropDetails;
 }

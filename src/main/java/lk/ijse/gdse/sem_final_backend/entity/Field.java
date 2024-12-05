@@ -17,22 +17,33 @@ public class Field {
     @Id
     @Column(name = "field_code")
     private String fieldCode;
+
     @Column(name = "field_name")
     private String fieldName;
+
     @Column(name = "field_location")
     private Point fieldLocation;
+
     @Column(name = "field_size")
     private double fieldSize;
+
     @Column(name = "image_1", columnDefinition = "LONGTEXT")
     private String image1;
+
     @Column(name = "image_2", columnDefinition = "LONGTEXT")
     private String image2;
+
+    // Cascade all CRUD operations (persist, merge, remove, refresh) for Crop
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Crop> crop;
+
+    // Cascade all CRUD operations (persist, merge, remove, refresh) for Equipment
     @OneToMany(mappedBy = "field", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Equipment> equipment;
+
+    // Cascade persist operation for Staff (optional based on your requirement)
     @ManyToMany
     @JoinTable(
             name = "field_staff",
@@ -40,7 +51,9 @@ public class Field {
             inverseJoinColumns = @JoinColumn(name = "staff_member_id")
     )
     private List<Staff> staff;
-    @ManyToMany(mappedBy = "field")
+
+    // Cascade all CRUD operations (persist, merge, remove, refresh) for CropDetails
+    @ManyToMany(mappedBy = "field", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<CropDetails> cropDetails;
 }
