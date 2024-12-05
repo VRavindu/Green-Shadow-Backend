@@ -12,8 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.awt.*;
 import java.util.List;
+import org.springframework.data.geo.Point;
 
 @RestController
 @RequiredArgsConstructor

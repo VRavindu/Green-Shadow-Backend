@@ -31,10 +31,8 @@ public class StaffDTO implements SuperDTO, StaffResponse {
     @NotBlank
     @Email
     private String email;
-    @NotBlank
     @JsonFormat(pattern = "yyyy-MM-dd")
     private String joinedDate;
-    @NotBlank
     @JsonFormat(pattern = "yyyy-MM-dd")
     private String DOB;
     @NotBlank

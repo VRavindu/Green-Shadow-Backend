@@ -43,6 +43,7 @@ public class AuthenticationServiceIMPL implements AuthenticationService {
                 throw new DataPersistFailedException("User Save Failed");
             }
             var genToken = jwtService.generateToken(savedUser);
+            System.out.println("Generated Token "+genToken);
             return JwtAuthResponse.builder().token(genToken).build();
         }else {
             throw new AlreadyExistsException("User already exists");
